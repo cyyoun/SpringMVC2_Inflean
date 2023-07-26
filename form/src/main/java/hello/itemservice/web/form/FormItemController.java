@@ -73,7 +73,7 @@ public class FormItemController {
 
         log.info("item.regions={}", item.getRegions());
 
-        log.info("item.itemType={}", item.getItemType());
+        log.info("item.getItemName={}", item.getItemName());
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
