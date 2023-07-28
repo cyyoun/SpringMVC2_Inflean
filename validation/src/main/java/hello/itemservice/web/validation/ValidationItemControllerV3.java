@@ -44,6 +44,16 @@ public class ValidationItemControllerV3 {
 
     @PostMapping("/add")    //@ModelAttribute Item item, BindingResult bindingResult 순서 중요 🌼
     public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        //필트 오류는 Bean Validation 으로 사용, 오브젝트 오류는 이렇게 자바 코드로 하는 게 더 기능 구현이 좋음
+        //특정 필드가 아닌 복합 룰 검증
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+            }
+        }
+
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
