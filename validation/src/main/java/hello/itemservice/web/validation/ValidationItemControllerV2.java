@@ -27,6 +27,9 @@ public class ValidationItemControllerV2 {
     //@Autowired 없이 의존성 주입 가능
     private final ItemRepository itemRepository;
     private final ItemValidator itemValidator;
+
+
+
     @InitBinder
     public void init(WebDataBinder dataBinder) {
         dataBinder.addValidators(itemValidator);
